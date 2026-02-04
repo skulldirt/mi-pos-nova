@@ -198,20 +198,40 @@ function App() {
           </section>
 
           {user.rol === 'admin' && (
-            <section className="bg-white p-6 rounded-2xl border-2 border-dashed border-gray-200">
-              <h3 className="font-bold mb-4">Añadir Nuevo Producto</h3>
-              <form onSubmit={async (e) => {
-                e.preventDefault();
-                await axios.post(`${API_URL}/productos`, nuevoProducto);
-                setNuevoProducto({nombre:'', precio:'', stock:''});
-                obtenerProductos();
-              }} className="grid grid-cols-3 gap-3">
-                <input type="text" placeholder="Nombre" className="p-2 border rounded-lg" value={nuevoProducto.nombre} onChange={e => setNuevoProducto({...nuevoProducto, nombre: e.target.value})} />
-                <input type="number" placeholder="Precio" className="p-2 border rounded-lg" value={nuevoProducto.precio} onChange={e => setNuevoProducto({...nuevoProducto, precio: e.target.value})} />
-                <button type="submit" className="bg-gray-800 text-white rounded-lg font-bold">GUARDAR</button>
-              </form>
-            </section>
-          )}
+  <section className="bg-white p-6 rounded-2xl border-2 border-dashed border-gray-200">
+    <h3 className="font-bold mb-4 text-gray-700">📦 Agregar Nuevo Producto al Inventario</h3>
+    <form onSubmit={async (e) => {
+      e.preventDefault();
+      if(!nuevoProducto.nombre || !nuevoProducto.precio || !nuevoProducto.stock) {
+        return alert("Por favor rellena todos los campos, incluyendo el stock");
+      }
+      await axios.post(`${API_URL}/productos`, nuevoProducto);
+      setNuevoProducto({nombre:'', precio:'', stock:''});
+      obtenerProductos();
+    }} className="grid grid-cols-1 md:grid-cols-4 gap-3">
+      
+      <input type="text" placeholder="Nombre del producto" 
+        className="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+        value={nuevoProducto.nombre} 
+        onChange={e => setNuevoProducto({...nuevoProducto, nombre: e.target.value})} />
+      
+      <input type="number" placeholder="Precio ($)" 
+        className="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+        value={nuevoProducto.precio} 
+        onChange={e => setNuevoProducto({...nuevoProducto, precio: e.target.value})} />
+      
+      <input type="number" placeholder="Stock Inicial" 
+        className="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+        value={nuevoProducto.stock} 
+        onChange={e => setNuevoProducto({...nuevoProducto, stock: e.target.value})} />
+      
+      <button type="submit" className="bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all">
+        + AGREGAR
+      </button>
+      
+    </form>
+  </section>
+)}
         </div>
 
         <div className="lg:col-span-5">
