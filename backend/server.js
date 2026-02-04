@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors'); // <--- 1. Importa CORS
+const cors = require(); // <--- 1. Importa CORS
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 const bcrypt = require('bcrypt');
