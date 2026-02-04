@@ -18,14 +18,14 @@ function App() {
   // --- FUNCIONES DE CARGA ---
   const obtenerProductos = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/productos');
+      const res = await axios.get('https://mi-pos-nova-backend.onrender.com/productos');
       setProductos(res.data);
     } catch (e) { console.error("Error cargando productos", e); }
   };
 
   const obtenerVentas = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/ventas');
+      const res = await axios.get('https://mi-pos-nova-backend.onrender.com/ventas');
       setVentas(res.data);
     } catch (e) { console.error("Error cargando ventas", e); }
   };
@@ -46,7 +46,7 @@ function App() {
   const manejarLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/login', userCredentials);
+      const res = await axios.post('https://mi-pos-nova-backend.onrender.com/login', userCredentials);
       setUser({ nombre: res.data.username, rol: res.data.rol });
       setIsLoggedIn(true);
     } catch (error) {
