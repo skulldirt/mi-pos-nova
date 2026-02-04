@@ -75,6 +75,28 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// NUEVA RUTA: Registro de usuarios (Cajeros o Admins)
+app.post('/register', async (req, res) => {
+    const { username, password, rol } = req.body;
+    
+    try {
+        // 1. Ciframos la contraseña igual que en registrar-admin
+        const hash = await bcrypt.hash(password, 10);
+        
+        // 2. Insertamos en la base de datos
+        // Usamos 'cajero' por defecto si no se envía un rol
+        await db.run(
+            'INSERT INTO usuarios (username, password, rol) VALUES (?, ?, ?)', 
+            [username, hash, rol || 'cajero']
+        );
+        
+        res.send({ mensaje: "Usuario registrado con éxito" });
+    } catch (e) {
+        console.error(e);
+        res.status(400).send({ error: "El usuario ya existe o faltan datos" });
+    }
+});
+
 // RUTA 1: Agregar un producto
 app.post('/productos', async (req, res) => {
     const { nombre, precio, stock } = req.body;
