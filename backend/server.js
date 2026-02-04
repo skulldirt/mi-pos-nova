@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require(); // <--- 1. Importa CORS
+const cors = require('cors'); // <--- 1. Importa CORS
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 const bcrypt = require('bcrypt');
@@ -208,6 +208,6 @@ app.get('/reset-usuarios', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
 });
